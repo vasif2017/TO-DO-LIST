@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simple and focused to-do list">
+    <title>My Tasks</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <main class="app-shell">
+        <section class="todo-app" aria-labelledby="page-title">
+            <header class="app-header">
+                <div>
+                    <p class="eyebrow">TODAY'S PLAN</p>
+                    <h1 id="page-title">My tasks<span class="accent-dot">.</span></h1>
+                </div>
+                <div class="header-actions">
+                    <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">◐</button>
+                    <div class="date-badge" aria-label="Today">
+                        <span class="date-day" id="date-day">20</span>
+                        <span class="date-month" id="date-month">SEP</span>
+                    </div>
+                </div>
+            </header>
+
+            <form class="task-form" id="task-form">
+                <label class="sr-only" for="task-input">New task</label>
+                <input id="task-input" type="text" placeholder="What needs to be done?" maxlength="120"
+                    autocomplete="off" required>
+                <button class="add-button" type="submit" aria-label="Add task" title="Add task">+</button>
+            </form>
+
+            <div class="task-options">
+                <label>
+                    <span class="sr-only">Category</span>
+                    <select id="category-input">
+                        <option value="General">General</option>
+                        <option value="Work">Work</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Study">Study</option>
+                    </select>
+                </label>
+                <label>
+                    <span class="sr-only">Priority</span>
+                    <select id="priority-input">
+                        <option value="low">Low priority</option>
+                        <option value="medium" selected>Medium priority</option>
+                        <option value="high">High priority</option>
+                    </select>
+                </label>
+                <label class="date-input-wrap">
+                    <span class="sr-only">Due date</span>
+                    <input id="due-date-input" type="date" aria-label="Due date">
+                </label>
+            </div>
+
+            <div class="utility-row">
+                <label class="search-box">
+                    <span class="sr-only">Search tasks</span>
+                    <span aria-hidden="true">⌕</span>
+                    <input id="search-input" type="search" placeholder="Search tasks" autocomplete="off">
+                </label>
+                <label class="sort-box">
+                    <span class="sr-only">Sort tasks</span>
+                    <select id="sort-select">
+                        <option value="manual">Manual order</option>
+                        <option value="newest">Newest first</option>
+                        <option value="priority">Priority</option>
+                        <option value="due">Due date</option>
+                        <option value="alphabetical">A to Z</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="toolbar">
+                <p class="task-count"><strong id="active-count">0</strong> <span id="count-label">tasks left</span> <span class="completed-count" id="completed-count">· 0 done</span></p>
+                <div class="filters" role="group" aria-label="Task filter">
+                    <button class="filter-button is-active" type="button" data-filter="all">All</button>
+                    <button class="filter-button" type="button" data-filter="active">Active</button>
+                    <button class="filter-button" type="button" data-filter="completed">Completed</button>
+                </div>
+            </div>
+
+            <ul class="task-list" id="task-list" aria-live="polite"></ul>
+            <div class="empty-state" id="empty-state" hidden>
+                <span class="empty-icon">✓</span>
+                <p id="empty-title">Nothing here yet</p>
+                <span id="empty-copy">Add your first task above</span>
+            </div>
+
+            <footer class="app-footer">
+                <span><span class="status-dot"></span> Saved automatically</span>
+                <div class="footer-actions">
+                    <button class="clear-button" id="clear-completed" type="button">Clear completed</button>
+                    <button class="clear-button" id="export-tasks" type="button">Export</button>
+                    <button class="clear-button" id="import-tasks" type="button">Import</button>
+                    <input id="import-file" type="file" accept="application/json" hidden>
+                </div>
+            </footer>
+        </section>
+        <p class="signature">small steps become big things</p>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+
+</html>
