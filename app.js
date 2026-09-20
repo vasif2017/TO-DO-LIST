@@ -1,5 +1,4 @@
 const STORAGE_KEY = 'my-todo-list-tasks';
-const STARTER_KEY = 'my-todo-list-starter-seeded-v2';
 const THEME_KEY = 'my-todo-list-theme';
 const taskForm = document.querySelector('#task-form');
 const taskInput = document.querySelector('#task-input');
@@ -46,10 +45,9 @@ function setStoredValue(key, value) {
 function loadTasks() {
     try {
         const storedTasks = getStoredValue(STORAGE_KEY);
-        if (storedTasks === null) return createStarterTasks();
+        if (storedTasks === null) return [];
         const savedTasks = JSON.parse(storedTasks);
         if (!Array.isArray(savedTasks)) return [];
-        if (savedTasks.length === 0) return createStarterTasks();
         return savedTasks.map((task, index) => ({
             id: task.id || `${Date.now()}-${index}`,
             text: String(task.text || '').trim(),
@@ -62,45 +60,6 @@ function loadTasks() {
     } catch {
         return [];
     }
-}
-
-function createStarterTasks() {
-    const today = new Date();
-    const formatDate = (daysFromNow) => {
-        const date = new Date(today);
-        date.setDate(date.getDate() + daysFromNow);
-        return date.toISOString().slice(0, 10);
-    };
-
-    return [
-        {
-            id: `starter-${Date.now()}-1`,
-            text: 'Plan the week ahead',
-            completed: false,
-            category: 'Personal',
-            priority: 'high',
-            dueDate: formatDate(1),
-            createdAt: Date.now(),
-        },
-        {
-            id: `starter-${Date.now()}-2`,
-            text: 'Finish the most important task',
-            completed: false,
-            category: 'Work',
-            priority: 'medium',
-            dueDate: formatDate(2),
-            createdAt: Date.now() - 1,
-        },
-        {
-            id: `starter-${Date.now()}-3`,
-            text: 'Take a short break',
-            completed: false,
-            category: 'Wellbeing',
-            priority: 'low',
-            dueDate: '',
-            createdAt: Date.now() - 2,
-        },
-    ];
 }
 
 function saveTasks() {
@@ -370,10 +329,6 @@ function updateDate() {
     window.setTimeout(updateDate, nextDay.getTime() - today.getTime() + 1000);
 }
 
-if (getStoredValue(STARTER_KEY) !== 'true' && tasks.some((task) => task.id.startsWith('starter-'))) {
-    saveTasks();
-    setStoredValue(STARTER_KEY, 'true');
-}
 applyTheme(getStoredValue(THEME_KEY) || 'light');
 updateDate();
 render();
